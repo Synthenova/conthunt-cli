@@ -7,6 +7,8 @@ $Archive = Join-Path $Fixture "conthunt_windows_x86_64.zip"
 $Checksums = Join-Path $Fixture "checksums.txt"
 $Calls = [System.Collections.Generic.List[string]]::new()
 $OriginalUserPath = [Environment]::GetEnvironmentVariable("Path", "User")
+$StableVersion = "  v2.0.0  "
+$DevVersion = "v2.1.0-beta.2"
 
 try {
     New-Item -ItemType Directory -Path (Join-Path $Fixture "archive") | Out-Null
@@ -19,12 +21,12 @@ try {
     function Invoke-RestMethod {
         param([string]$Uri)
         $Calls.Add($Uri)
-        if ($Uri.EndsWith("/latest")) { return [pscustomobject]@{ tag_name = "v2.0.0" } }
-        return @(
-            [pscustomobject]@{ tag_name = "v9.9.9-draft"; draft = $true; prerelease = $true },
-            [pscustomobject]@{ tag_name = "v2.1.0-beta.2"; draft = $false; prerelease = $true },
-            [pscustomobject]@{ tag_name = "v2.0.0"; draft = $false; prerelease = $false }
-        )
+        if ($Uri.EndsWith("/main/VERSION")) {
+            if ($StableVersion -eq "__NETWORK_FAIL__") { throw "network failed" }
+            return $StableVersion
+        }
+        if ($Uri.EndsWith("/dev/VERSION")) { return $DevVersion }
+        throw "unexpected URI: $Uri"
     }
 
     function Invoke-WebRequest {
@@ -50,10 +52,50 @@ try {
 
     $Calls.Clear()
     . $Script -Version v1.2.3 -Channel dev -InstallDir $InstallDir
-    if ($Calls | Where-Object { $_ -like "https://api.github.com/*" }) {
-        throw "exact version unexpectedly queried releases API"
+    if ($Calls | Where-Object { $_ -like "https://raw.githubusercontent.com/*/VERSION" }) {
+        throw "exact version unexpectedly queried a channel pointer"
     }
 
+    $StableVersion = "not-a-tag"
+    try {
+        . $Script -Channel stable -InstallDir $InstallDir
+        throw "installer accepted an invalid channel tag"
+    } catch {
+        if ($_.Exception.Message -notlike "Invalid ContHunt release tag*") { throw }
+    }
+
+    $StableVersion = ""
+    try {
+        . $Script -Channel stable -InstallDir $InstallDir
+        throw "installer accepted an empty channel pointer"
+    } catch {
+        if ($_.Exception.Message -notlike "Invalid ContHunt release tag*") { throw }
+    }
+
+    $StableVersion = "__NETWORK_FAIL__"
+    try {
+        . $Script -Channel stable -InstallDir $InstallDir
+        throw "installer ignored a channel pointer network failure"
+    } catch {
+        if ($_.Exception.Message -notlike "Could not read the ContHunt stable release pointer*") { throw }
+    }
+
+    $StableVersion = "bad`nv2.0.0"
+    try {
+        . $Script -Channel stable -InstallDir $InstallDir
+        throw "installer accepted a multi-line channel pointer"
+    } catch {
+        if ($_.Exception.Message -notlike "Invalid ContHunt release tag*") { throw }
+    }
+
+    try {
+        . $Script -Version '../../bad' -InstallDir $InstallDir
+        throw "installer accepted an invalid exact tag"
+    } catch {
+        if ($_.Exception.Message -notlike "Invalid ContHunt release tag*") { throw }
+    }
+
+    $StableVersion = "v2.0.0"
     "$('0' * 64)  conthunt_windows_x86_64.zip" | Set-Content $Checksums
     try {
         . $Script -Version v1.2.3 -InstallDir $InstallDir

@@ -30,8 +30,8 @@ printf '%s\n' '#!/bin/sh' \
   'done' \
   'printf "%s\n" "$url" >> "$TEST_LOG"' \
   'case "$url" in' \
-  '  */releases/latest) printf "%s\n" '\''{"tag_name":"v2.0.0"}'\'' ;;' \
-  '  https://api.github.com/*/releases?*) printf "%s\n" '\''[{"tag_name":"v9.9.9-draft","draft":true,"prerelease":true},{"tag_name":"v2.1.0-beta.2","draft":false,"prerelease":true},{"tag_name":"v2.0.0","draft":false,"prerelease":false}]'\'' ;;' \
+  '  */main/VERSION) [ "$TEST_STABLE_VERSION" != __CURL_FAIL__ ] || exit 22; printf "%s" "$TEST_STABLE_VERSION" ;;' \
+  '  */dev/VERSION) printf "%s" "$TEST_DEV_VERSION" ;;' \
   '  */checksums.txt) cp "$TEST_CHECKSUMS" "$output" ;;' \
   '  */conthunt_darwin_arm64.tar.gz) cp "$TEST_ARCHIVE" "$output" ;;' \
   '  *) echo "unexpected URL: $url" >&2; exit 1 ;;' \
@@ -46,6 +46,8 @@ run_install() {
   TEST_LOG="$tmp/urls.log" \
   TEST_ARCHIVE="$tmp/conthunt_darwin_arm64.tar.gz" \
   TEST_CHECKSUMS="$tmp/checksums.txt" \
+  TEST_STABLE_VERSION="  v2.0.0  " \
+  TEST_DEV_VERSION="v2.1.0-beta.2" \
   CONTHUNT_INSTALL_DIR="$tmp/install" \
   "$@" sh "$repo_root/install.sh" >/dev/null
   test -x "$tmp/install/conthunt"
@@ -59,8 +61,74 @@ grep -q '/download/v2.1.0-beta.2/conthunt_darwin_arm64.tar.gz$' "$tmp/urls.log"
 
 run_install env CONTHUNT_VERSION=v1.2.3 CONTHUNT_CHANNEL=dev
 grep -q '/download/v1.2.3/conthunt_darwin_arm64.tar.gz$' "$tmp/urls.log"
-if grep -q 'api.github.com/.*/releases' "$tmp/urls.log"; then
-  echo 'exact version unexpectedly queried releases API' >&2
+if grep -q 'raw.githubusercontent.com/.*/VERSION' "$tmp/urls.log"; then
+  echo 'exact version unexpectedly queried a channel pointer' >&2
+  exit 1
+fi
+
+if HOME="$tmp/home" \
+  PATH="$tmp/stubs:$PATH" \
+  TEST_LOG="$tmp/urls.log" \
+  TEST_ARCHIVE="$tmp/conthunt_darwin_arm64.tar.gz" \
+  TEST_CHECKSUMS="$tmp/checksums.txt" \
+  TEST_STABLE_VERSION="not-a-tag" \
+  TEST_DEV_VERSION="v2.1.0-beta.2" \
+  CONTHUNT_INSTALL_DIR="$tmp/install" \
+  sh "$repo_root/install.sh" >/dev/null 2>&1; then
+  echo 'installer accepted an invalid channel tag' >&2
+  exit 1
+fi
+
+if HOME="$tmp/home" \
+  PATH="$tmp/stubs:$PATH" \
+  TEST_LOG="$tmp/urls.log" \
+  TEST_ARCHIVE="$tmp/conthunt_darwin_arm64.tar.gz" \
+  TEST_CHECKSUMS="$tmp/checksums.txt" \
+  TEST_STABLE_VERSION="__CURL_FAIL__" \
+  TEST_DEV_VERSION="v2.1.0-beta.2" \
+  CONTHUNT_INSTALL_DIR="$tmp/install" \
+  sh "$repo_root/install.sh" >/dev/null 2>&1; then
+  echo 'installer ignored a channel pointer network failure' >&2
+  exit 1
+fi
+
+if HOME="$tmp/home" \
+  PATH="$tmp/stubs:$PATH" \
+  TEST_LOG="$tmp/urls.log" \
+  TEST_ARCHIVE="$tmp/conthunt_darwin_arm64.tar.gz" \
+  TEST_CHECKSUMS="$tmp/checksums.txt" \
+  TEST_STABLE_VERSION="$(printf 'bad\nv2.0.0')" \
+  TEST_DEV_VERSION="v2.1.0-beta.2" \
+  CONTHUNT_INSTALL_DIR="$tmp/install" \
+  sh "$repo_root/install.sh" >/dev/null 2>&1; then
+  echo 'installer accepted a multi-line channel pointer' >&2
+  exit 1
+fi
+
+if HOME="$tmp/home" \
+  PATH="$tmp/stubs:$PATH" \
+  TEST_LOG="$tmp/urls.log" \
+  TEST_ARCHIVE="$tmp/conthunt_darwin_arm64.tar.gz" \
+  TEST_CHECKSUMS="$tmp/checksums.txt" \
+  TEST_STABLE_VERSION="" \
+  TEST_DEV_VERSION="v2.1.0-beta.2" \
+  CONTHUNT_INSTALL_DIR="$tmp/install" \
+  sh "$repo_root/install.sh" >/dev/null 2>&1; then
+  echo 'installer accepted an empty channel pointer' >&2
+  exit 1
+fi
+
+if HOME="$tmp/home" \
+  PATH="$tmp/stubs:$PATH" \
+  TEST_LOG="$tmp/urls.log" \
+  TEST_ARCHIVE="$tmp/conthunt_darwin_arm64.tar.gz" \
+  TEST_CHECKSUMS="$tmp/checksums.txt" \
+  TEST_STABLE_VERSION="v2.0.0" \
+  TEST_DEV_VERSION="v2.1.0-beta.2" \
+  CONTHUNT_INSTALL_DIR="$tmp/install" \
+  CONTHUNT_VERSION='../../bad' \
+  sh "$repo_root/install.sh" >/dev/null 2>&1; then
+  echo 'installer accepted an invalid exact tag' >&2
   exit 1
 fi
 

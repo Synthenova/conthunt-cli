@@ -20,27 +20,22 @@ esac
 
 if [ -z "$version" ]; then
   case "$channel" in
-    stable)
-      version=$(curl -fsSL "https://api.github.com/repos/$repo/releases/latest" |
-        sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -n 1)
-      ;;
-    dev)
-      version=$(curl -fsSL "https://api.github.com/repos/$repo/releases?per_page=100" |
-        tr ',' '\n' |
-        awk '
-          /"tag_name"[[:space:]]*:/ {
-            draft=0
-            tag=$0
-            sub(/^.*"tag_name"[[:space:]]*:[[:space:]]*"/, "", tag)
-            sub(/".*$/, "", tag)
-          }
-          /"draft"[[:space:]]*:[[:space:]]*true/ { draft=1 }
-          /"prerelease"[[:space:]]*:[[:space:]]*true/ && tag != "" && !draft { print tag; exit }
-        ')
-      ;;
+    stable) version_url="https://raw.githubusercontent.com/$repo/main/VERSION" ;;
+    dev) version_url="https://raw.githubusercontent.com/$repo/dev/VERSION" ;;
     *) echo "CONTHUNT_CHANNEL must be stable or dev." >&2; exit 1 ;;
   esac
-  [ -n "$version" ] || { echo "Could not resolve the latest ContHunt $channel release." >&2; exit 1; }
+  if ! version=$(curl -fsSL "$version_url"); then
+    echo "Could not read the ContHunt $channel release pointer." >&2
+    exit 1
+  fi
+fi
+
+version=$(printf '%s' "$version" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+version_pattern='^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$'
+matched_version=$(printf '%s\n' "$version" | grep -E "$version_pattern" || true)
+if [ -z "$version" ] || [ "$matched_version" != "$version" ]; then
+  echo "Invalid ContHunt release tag: ${version:-<empty>}." >&2
+  exit 1
 fi
 
 archive="conthunt_${os}_${arch}.tar.gz"

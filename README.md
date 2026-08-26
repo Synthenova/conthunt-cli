@@ -54,7 +54,7 @@ Release archives and `checksums.txt` are attached to the [GitHub Releases](https
 
 ## Release maintenance
 
-This repository intentionally contains no CLI source. Build archives in the private ContHunt repository using its `.goreleaser.yaml`, then publish the resulting archives and `checksums.txt` on the matching GitHub release here. Stable releases come from the private repository's `main` branch and publish a normal tag such as `v1.2.3`; development releases come from `dev` and publish a prerelease tag such as `v1.2.4-beta.1`. Keep the asset names unchanged:
+This repository intentionally contains no CLI source. Build archives in the private ContHunt repository using its `.goreleaser.yaml`, then publish the resulting archives and `checksums.txt` on the matching GitHub release here. Stable releases come from the private repository's `main` branch and publish a normal tag such as `v1.2.3`; development releases come from `dev` and publish a prerelease tag such as `v1.2.4-beta.1`. After the assets are published, release automation must update `VERSION` on that channel's branch to the new tag. Installers treat `main/VERSION` and `dev/VERSION` as the channel pointers. Keep the asset names unchanged:
 
 ```text
 conthunt_darwin_arm64.tar.gz

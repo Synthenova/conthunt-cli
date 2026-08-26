@@ -15,16 +15,18 @@ if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -ne "X64
 
 if (-not $Version) {
     switch ($Channel) {
-        "stable" { $Version = (Invoke-RestMethod "https://api.github.com/repos/$Repo/releases/latest").tag_name }
-        "dev" {
-            $Release = Invoke-RestMethod "https://api.github.com/repos/$Repo/releases?per_page=100" |
-                Where-Object { $_.prerelease -and -not $_.draft } |
-                Select-Object -First 1
-            $Version = $Release.tag_name
-        }
+        "stable" { $VersionUrl = "https://raw.githubusercontent.com/$Repo/main/VERSION" }
+        "dev" { $VersionUrl = "https://raw.githubusercontent.com/$Repo/dev/VERSION" }
         default { throw "CONTHUNT_CHANNEL must be stable or dev." }
     }
-    if (-not $Version) { throw "Could not resolve the latest ContHunt $Channel release." }
+    try { $Version = Invoke-RestMethod $VersionUrl }
+    catch { throw "Could not read the ContHunt $Channel release pointer: $($_.Exception.Message)" }
+}
+
+$Version = ([string]$Version).Trim()
+if ($Version -notmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$') {
+    $DisplayVersion = if ($Version) { $Version } else { "<empty>" }
+    throw "Invalid ContHunt release tag: $DisplayVersion."
 }
 
 $Archive = "conthunt_windows_x86_64.zip"
