@@ -16,7 +16,7 @@ Check for the CLI with `conthunt --version`. If it is absent, install it only wh
 
 Run `conthunt login` when authentication is missing. Give the printed verification URL and user code to the user and wait for them to approve it. Never request, print, copy, or persist their token. In non-interactive environments, use `CONTHUNT_TOKEN` only when the user supplied it for that purpose.
 
-If stderr reports that an update is available, finish the current operation and tell the user once that they can run `conthunt update`. Run `conthunt update --json` when the user asks to update. Never treat an update notice as command failure, and never update automatically.
+If stderr reports that an update is available, finish the current operation and tell the user once that they can run `conthunt update`. Run `conthunt update --json` when the user asks to update. Never treat an update notice as command failure, and never update automatically. If `update` is an unknown command, the installed CLI predates updater support; rerun the official installer once, preserving the dev channel when the current version contains `-dev.`.
 
 ## Operating model
 

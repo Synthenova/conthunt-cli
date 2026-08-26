@@ -19,6 +19,8 @@ conthunt update --json
 
 The CLI checks its release channel at most once every 24 hours and writes an available-update notice to stderr. Stable installations follow stable releases; development installations follow development prereleases. The update command verifies the release checksum before replacing the installed binary.
 
+Versions older than `v0.1.2` require one final reinstall because they do not yet contain `conthunt update`.
+
 ## Searches and media
 
 ```text

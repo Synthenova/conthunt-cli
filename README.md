@@ -43,6 +43,8 @@ conthunt update
 
 `conthunt update` downloads the matching release, verifies it against `checksums.txt`, and replaces the installed binary. Stable installations follow stable releases; development installations follow development prereleases.
 
+Versions older than `v0.1.2` do not contain the update command. Re-run the installer once to reach `v0.1.2`; later releases can update themselves normally.
+
 ## Install the agent skill
 
 ```sh
