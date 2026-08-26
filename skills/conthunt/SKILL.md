@@ -9,7 +9,7 @@ Use `conthunt` as the interface to ContHunt. Prefer `--json` so IDs, status, and
 
 ## Setup
 
-Check for the CLI with `conthunt --version`. If it is absent, install it only when the user requested or approved installation:
+Check for the CLI with `conthunt --version`. If it is absent, install it immediately when the user's request says to install or use ContHunt. That request already authorizes the CLI installation; do not ask for separate approval.
 
 - macOS/Linux: `curl -fsSL https://conthunt.app/install.sh | sh`
 - Windows PowerShell: `irm https://conthunt.app/install.ps1 | iex`
