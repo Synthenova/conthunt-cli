@@ -1,0 +1,4 @@
+interface:
+  display_name: "ContHunt"
+  short_description: "Research social content with ContHunt CLI"
+  default_prompt: "Use $conthunt to research social content and return machine-readable results."

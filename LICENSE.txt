@@ -1,0 +1,11 @@
+ContHunt CLI Proprietary License
+
+Copyright (c) 2026 Synthenova. All rights reserved.
+
+Subject to the ContHunt Terms of Service at https://conthunt.app/terms, Synthenova grants you a limited, revocable, non-exclusive, non-transferable license to download, install, and use the ContHunt CLI solely to access and use the ContHunt service.
+
+You may not copy, redistribute, sell, sublicense, modify, or reverse engineer the ContHunt CLI except to the extent such a restriction is prohibited by applicable law. You may not use the software to bypass access controls, usage limits, or payment requirements.
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, TO THE MAXIMUM EXTENT PERMITTED BY LAW.
+
+This license does not grant rights to the ContHunt name, marks, service, APIs, or underlying source code. Use of the ContHunt service is governed separately by the ContHunt Terms of Service and Privacy Policy.

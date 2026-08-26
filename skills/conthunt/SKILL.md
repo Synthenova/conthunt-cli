@@ -1,0 +1,35 @@
+---
+name: conthunt
+description: Use the ContHunt CLI to find, download, analyze, organize, and research viral social content through searches, boards, insights, chat, and deep research.
+---
+
+# ContHunt CLI
+
+Use `conthunt` as the interface to ContHunt. Prefer `--json` so IDs, status, and results remain machine-readable.
+
+## Setup
+
+Check for the CLI with `conthunt --version`. If it is absent, install it only when the user requested or approved installation:
+
+- macOS/Linux: `curl -fsSL https://conthunt.app/install.sh | sh`
+- Windows PowerShell: `irm https://conthunt.app/install.ps1 | iex`
+
+Run `conthunt login` when authentication is missing. Give the printed verification URL and user code to the user and wait for them to approve it. Never request, print, copy, or persist their token. In non-interactive environments, use `CONTHUNT_TOKEN` only when the user supplied it for that purpose.
+
+## Operating model
+
+- Use `start` to enqueue long work and return immediately.
+- Use `status` for a small, non-blocking poll.
+- Use `get` for the final result; exit code 4 means it is not ready.
+- Use `wait` only when the user wants the current process to remain attached.
+- Preserve returned search, media, content-item, board, and chat IDs. They are inputs to later commands.
+- Continue a chat or research session by sending another message to the same chat ID.
+- Follow `searches[].id` from chat or research output with `conthunt search get <id> --json` when full search results are needed.
+- Analysis requires a stored `media_asset_id`; do not substitute a direct social/CDN URL.
+- `download file` downloads on the user's machine. Do not expose signed or origin URLs unless the user asked for a URL.
+
+Read [references/commands.md](references/commands.md) when exact command syntax, flags, or exit codes are needed.
+
+## Context discipline
+
+Do not poll by repeatedly calling `get`. Poll `status`, then call `get` once the run is idle. Avoid placing raw progress events, URLs, or duplicate payloads into the working context when an ID or final result is sufficient.

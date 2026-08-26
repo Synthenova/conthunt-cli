@@ -1,0 +1,24 @@
+name: test
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  installers:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - if: runner.os != 'Windows'
+        run: tests/install_test.sh
+      - if: runner.os == 'Windows'
+        shell: pwsh
+        run: tests/install_test.ps1
