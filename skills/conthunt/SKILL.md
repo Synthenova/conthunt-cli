@@ -30,6 +30,14 @@ Run `conthunt login` when authentication is missing. Give the printed verificati
 
 Read [references/commands.md](references/commands.md) when exact command syntax, flags, or exit codes are needed.
 
+## Credits and billing
+
+If the CLI returns `credits_exhausted` or says the credit limit was exceeded, stop retrying that operation. Tell the user they have run out of credits, ask them to upgrade their plan, and give them this billing link:
+
+`https://agent.conthunt.app/app/billing/return`
+
+Do not start more billable ContHunt work until the user confirms they have upgraded or added credits.
+
 ## Context discipline
 
 Do not poll by repeatedly calling `get`. Poll `status`, then call `get` once the run is idle. Avoid placing raw progress events, URLs, or duplicate payloads into the working context when an ID or final result is sufficient.
