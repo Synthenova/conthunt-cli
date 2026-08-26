@@ -21,13 +21,25 @@ printf '%s\n' '#!/bin/sh' \
 printf '%s\n' '#!/bin/sh' \
   'url=""' \
   'output=""' \
+  'retry=""' \
+  'connect_timeout=""' \
+  'max_time=""' \
+  'base_flags=""' \
   'while [ "$#" -gt 0 ]; do' \
   '  case "$1" in' \
   '    -o) output=$2; shift 2 ;;' \
+  '    --retry) retry=$2; shift 2 ;;' \
+  '    --connect-timeout) connect_timeout=$2; shift 2 ;;' \
+  '    --max-time) max_time=$2; shift 2 ;;' \
+  '    --retry-delay) shift 2 ;;' \
+  '    -fsSL) base_flags=1; shift ;;' \
   '    -*) shift ;;' \
   '    *) url=$1; shift ;;' \
   '  esac' \
   'done' \
+  '[ "$base_flags" = 1 ] && [ "$retry" -gt 0 ] && [ "$connect_timeout" -gt 0 ] && [ "$max_time" -gt 0 ] || {' \
+  '  echo "curl call is missing bounded retry/timeout flags" >&2; exit 1;' \
+  '}' \
   'printf "%s\n" "$url" >> "$TEST_LOG"' \
   'case "$url" in' \
   '  */main/VERSION) [ "$TEST_STABLE_VERSION" != __CURL_FAIL__ ] || exit 22; printf "%s" "$TEST_STABLE_VERSION" ;;' \

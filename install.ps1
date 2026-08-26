@@ -6,6 +6,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $Repo = "Synthenova/conthunt-cli"
+$TimeoutSec = 120
 
 if (-not $Channel) { $Channel = "stable" }
 if (-not $InstallDir) { $InstallDir = Join-Path $env:LOCALAPPDATA "Programs\ContHunt" }
@@ -19,7 +20,7 @@ if (-not $Version) {
         "dev" { $VersionUrl = "https://raw.githubusercontent.com/$Repo/dev/VERSION" }
         default { throw "CONTHUNT_CHANNEL must be stable or dev." }
     }
-    try { $Version = Invoke-RestMethod $VersionUrl }
+    try { $Version = Invoke-RestMethod $VersionUrl -TimeoutSec $TimeoutSec }
     catch { throw "Could not read the ContHunt $Channel release pointer: $($_.Exception.Message)" }
 }
 
@@ -37,8 +38,8 @@ try {
     New-Item -ItemType Directory -Path $TempDir | Out-Null
     $ArchivePath = Join-Path $TempDir $Archive
     $ChecksumsPath = Join-Path $TempDir "checksums.txt"
-    Invoke-WebRequest "$BaseUrl/$Archive" -OutFile $ArchivePath
-    Invoke-WebRequest "$BaseUrl/checksums.txt" -OutFile $ChecksumsPath
+    Invoke-WebRequest "$BaseUrl/$Archive" -OutFile $ArchivePath -TimeoutSec $TimeoutSec
+    Invoke-WebRequest "$BaseUrl/checksums.txt" -OutFile $ChecksumsPath -TimeoutSec $TimeoutSec
 
     $ChecksumLine = Get-Content $ChecksumsPath | Where-Object { $_ -match "  $([regex]::Escape($Archive))$" } | Select-Object -First 1
     $Expected = ($ChecksumLine -split "\s+")[0]

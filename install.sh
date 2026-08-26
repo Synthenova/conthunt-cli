@@ -6,6 +6,10 @@ version=${CONTHUNT_VERSION:-}
 channel=${CONTHUNT_CHANNEL:-stable}
 install_dir=${CONTHUNT_INSTALL_DIR:-"$HOME/.local/bin"}
 
+curl_fetch() {
+  curl -fsSL --retry 3 --retry-delay 1 --connect-timeout 10 --max-time 120 "$@"
+}
+
 case "$(uname -s)" in
   Darwin) os=darwin ;;
   Linux) os=linux ;;
@@ -24,7 +28,7 @@ if [ -z "$version" ]; then
     dev) version_url="https://raw.githubusercontent.com/$repo/dev/VERSION" ;;
     *) echo "CONTHUNT_CHANNEL must be stable or dev." >&2; exit 1 ;;
   esac
-  if ! version=$(curl -fsSL "$version_url"); then
+  if ! version=$(curl_fetch "$version_url"); then
     echo "Could not read the ContHunt $channel release pointer." >&2
     exit 1
   fi
@@ -43,8 +47,8 @@ base_url="https://github.com/$repo/releases/download/$version"
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 
-curl -fsSL "$base_url/$archive" -o "$tmp/$archive"
-curl -fsSL "$base_url/checksums.txt" -o "$tmp/checksums.txt"
+curl_fetch "$base_url/$archive" -o "$tmp/$archive"
+curl_fetch "$base_url/checksums.txt" -o "$tmp/checksums.txt"
 
 grep "  $archive\$" "$tmp/checksums.txt" > "$tmp/archive.sha256" || {
   echo "Release checksum is missing for $archive." >&2

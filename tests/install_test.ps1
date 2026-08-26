@@ -19,7 +19,8 @@ try {
         Set-Content $Checksums
 
     function Invoke-RestMethod {
-        param([string]$Uri)
+        param([string]$Uri, [int]$TimeoutSec)
+        if ($TimeoutSec -le 0) { throw "Invoke-RestMethod is missing a timeout" }
         $Calls.Add($Uri)
         if ($Uri.EndsWith("/main/VERSION")) {
             if ($StableVersion -eq "__NETWORK_FAIL__") { throw "network failed" }
@@ -30,7 +31,8 @@ try {
     }
 
     function Invoke-WebRequest {
-        param([string]$Uri, [string]$OutFile)
+        param([string]$Uri, [string]$OutFile, [int]$TimeoutSec)
+        if ($TimeoutSec -le 0) { throw "Invoke-WebRequest is missing a timeout" }
         $Calls.Add($Uri)
         if ($Uri.EndsWith("checksums.txt")) { Copy-Item $Checksums $OutFile }
         else { Copy-Item $Archive $OutFile }
