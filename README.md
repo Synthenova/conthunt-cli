@@ -35,6 +35,14 @@ conthunt login
 conthunt whoami
 ```
 
+The CLI checks its own release channel for updates at most once every 24 hours and prints a non-blocking notice when one is available. Updates are never installed automatically:
+
+```sh
+conthunt update
+```
+
+`conthunt update` downloads the matching release, verifies it against `checksums.txt`, and replaces the installed binary. Stable installations follow stable releases; development installations follow development prereleases.
+
 ## Install the agent skill
 
 ```sh

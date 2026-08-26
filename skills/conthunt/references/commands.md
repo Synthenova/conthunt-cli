@@ -10,6 +10,15 @@ conthunt whoami --json
 
 Authentication resolution order is `--token`, `CONTHUNT_TOKEN`, then the credential saved by `conthunt login`.
 
+## Updates
+
+```text
+conthunt update
+conthunt update --json
+```
+
+The CLI checks its release channel at most once every 24 hours and writes an available-update notice to stderr. Stable installations follow stable releases; development installations follow development prereleases. The update command verifies the release checksum before replacing the installed binary.
+
 ## Searches and media
 
 ```text
