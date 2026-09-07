@@ -22,6 +22,8 @@ If stderr reports that an update is available, finish the current operation and 
 
 - Use `agent-search` when the user wants the SearchAgent to explore a niche, refine probes, and choose useful searches.
 - Use `search` when the user has already supplied the exact query and platform scope.
+- Treat TikTok as one platform: `--tiktok` searches both Keyword and Top, keeps video-only Top results, and deduplicates them. Never look for a separate TikTok Top flag.
+- Keep YouTube searches restricted to Shorts. Use the platform-specific query, date, sort, and proxy-region flags only when the request needs them; otherwise use the CLI defaults.
 - Use `research` when the user wants evidence-backed answers across the resulting videos.
 - Use `start` to enqueue long work and return immediately.
 - Use `status` for a small, non-blocking poll. Use `wait` only when the user wants the process to remain attached.

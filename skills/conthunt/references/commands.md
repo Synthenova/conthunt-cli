@@ -36,7 +36,11 @@ SearchAgent can issue multiple paid searches while exploring and refining a nich
 ## Searches and media
 
 ```text
-conthunt search start <query> [--tiktok] [--tiktok-top] [--instagram] [--youtube] [--amount N] --json
+conthunt search start <query> [--tiktok] [--instagram] [--youtube]
+  [--tiktok-query <text>] [--tiktok-date <value>] [--tiktok-sort <value>] [--tiktok-region <CC>]
+  [--instagram-query <text>] [--instagram-date <value>]
+  [--youtube-query <text>] [--youtube-upload-date <value>] [--youtube-sort <value>] [--youtube-region <CC>]
+  --json
 conthunt search list --json
 conthunt search status <search-id> --json
 conthunt search get <search-id> --json
@@ -49,7 +53,23 @@ conthunt analyze get <media-asset-id> --json
 conthunt analyze wait <media-asset-id> --json
 ```
 
-Search defaults to TikTok, Instagram, and YouTube when no platform flag is supplied.
+Search defaults to TikTok, Instagram Reels, and YouTube Shorts when no platform flag is supplied. A platform-specific option implicitly selects its platform.
+
+- TikTok always runs Keyword plus Top. Top is filtered to videos and the combined result is deduplicated. Defaults: `last-3-months`, `relevance`, `US`.
+- Instagram defaults to `last-month`; valid dates are `last-week`, `last-month`, and `last-year`.
+- YouTube is always Shorts with extras enabled. Defaults: `this_year`, `relevance`, `US`.
+- Region is a provider proxy location, not proof of the video's origin.
+- There is no result-count flag. Use the provider cursors returned by search results for pagination.
+
+Controlled values:
+
+```text
+--tiktok-date yesterday|this-week|this-month|last-3-months|last-6-months|all-time
+--tiktok-sort relevance|most-liked|date-posted
+--instagram-date last-week|last-month|last-year
+--youtube-upload-date today|this_week|this_month|this_year
+--youtube-sort relevance|popular
+```
 
 ## Boards and insights
 
