@@ -10,16 +10,28 @@ conthunt whoami --json
 
 Authentication resolution order is `--token`, `CONTHUNT_TOKEN`, then the credential saved by `conthunt login`.
 
-## Updates
+## Installation and updates
 
 ```text
+conthunt install skill
 conthunt update
 conthunt update --json
 ```
 
+`install skill` delegates to the public skills installer using `npx skills add Synthenova/conthunt-cli --skill conthunt -g`. It does not inspect or rewrite skill files itself.
+
 The CLI checks its release channel at most once every 24 hours and writes an available-update notice to stderr. Stable installations follow stable releases; development installations follow development prereleases. The update command verifies the release checksum before replacing the installed binary.
 
-Versions older than `v0.1.2` require one final reinstall because they do not yet contain `conthunt update`.
+## SearchAgent
+
+```text
+conthunt agent-search start <brief> [--filters <json>] [--request-key <uuid>] --json
+conthunt agent-search status <run-id> --json
+conthunt agent-search get <run-id> --json
+conthunt agent-search wait <run-id> --json
+```
+
+SearchAgent can issue multiple paid searches while exploring and refining a niche. Its completed result contains its final answer and selected ContHunt search IDs. Keep the generated request key when a start outcome is uncertain; retrying with that same key prevents a duplicate start.
 
 ## Searches and media
 
@@ -55,22 +67,6 @@ conthunt insights get <board-id> --json
 conthunt insights wait <board-id> --json
 ```
 
-## Chat
-
-```text
-conthunt chat create [--title <title>] [--board <id>] [--search <id>] --json
-conthunt chat send <chat-id> <message> --json
-conthunt chat status <chat-id> --json
-conthunt chat get <chat-id> --json
-conthunt chat wait <chat-id> --json
-conthunt chat resume <chat-id> --json
-conthunt chat tags <chat-id> --json
-conthunt chat list --json
-conthunt chat delete <chat-id> --json
-```
-
-Each `send` adds another turn to the same chat ID. `get` returns useful messages and associated search IDs without raw internal tool payloads.
-
 ## Deep research
 
 ```text
@@ -79,11 +75,12 @@ conthunt research send <chat-id> <message> --json
 conthunt research status <chat-id> --json
 conthunt research get <chat-id> --json
 conthunt research wait <chat-id> --json
-conthunt research resume <chat-id> --json
+conthunt research watched <chat-id> [--search <search-id>] [--question <question-id>] [--cursor <cursor>] [--limit N] --json
+conthunt research evidence <chat-id> <content-item-id> --json
 conthunt research list --json
 ```
 
-Research uses the same multi-turn chat ID model. `status` stays small; `get` returns the completed report, slim canvas, messages, and search IDs.
+Research is multi-turn on one research chat ID. Do not send another turn while its status is active. `get` returns the completed answer and selected search metadata. `watched` pages through analyzed videos and can filter by finalized search or order by a research-question score. `evidence` returns the selected video's question-aware Markdown evidence.
 
 ## Trending
 
