@@ -1,6 +1,6 @@
 ---
 name: conthunt
-description: Use the ContHunt CLI to find, download, analyze, organize, and research viral social content through searches, boards, insights, chat, and deep research.
+description: Use the ContHunt CLI to find, download, analyze, organize, and research viral social content on TikTok, Instagram Reels, and YouTube Shorts through searches, boards, insights, chat, and deep research. Use when the user mentions ContHunt, conthunt CLI, viral social research, TikTok/Instagram/YouTube Shorts discovery, or evidence-backed content research.
 ---
 
 # ContHunt CLI

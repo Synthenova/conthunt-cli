@@ -1,6 +1,25 @@
 # ContHunt CLI
 
-Official binary releases and agent skill for the proprietary ContHunt CLI. The CLI source is maintained privately by Synthenova.
+Official binary releases and agent skill for ContHunt, a social content research CLI for TikTok, Instagram Reels, and YouTube Shorts. The CLI source is maintained privately by Synthenova.
+
+## Agent skill
+
+Install for Claude Code, Codex, Cursor, and other agents:
+
+```sh
+npx skills add Synthenova/conthunt-cli --skill conthunt -g
+```
+
+Then ask the agent to research a niche with ContHunt. It installs the CLI if needed, runs `conthunt login`, and keeps results in `--json`.
+
+Skill source: [`skills/conthunt/SKILL.md`](https://github.com/Synthenova/conthunt-cli/tree/main/skills/conthunt).
+
+Claude Code can also load this repository as a plugin marketplace:
+
+```text
+/plugin marketplace add Synthenova/conthunt-cli
+/plugin install conthunt@conthunt
+```
 
 ## Install
 
@@ -44,14 +63,6 @@ conthunt update
 `conthunt update` downloads the matching release, verifies it against `checksums.txt`, and replaces the installed binary. Stable installations follow stable releases; development installations follow development prereleases.
 
 Versions older than `v0.1.2` do not contain the update command. Re-run the installer once to reach `v0.1.2`; later releases can update themselves normally.
-
-## Install the agent skill
-
-```sh
-npx skills add Synthenova/conthunt-cli --skill conthunt -g
-```
-
-The skill teaches supported coding agents to use JSON output, asynchronous job lifecycles, reusable IDs, device authentication, and safe local downloads.
 
 ## Releases
 
