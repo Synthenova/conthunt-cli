@@ -1,0 +1,24 @@
+{
+  "name": "conthunt",
+  "owner": {
+    "name": "Synthenova"
+  },
+  "metadata": {
+    "description": "Official ContHunt agent skill and CLI releases"
+  },
+  "plugins": [
+    {
+      "name": "conthunt",
+      "source": "./",
+      "description": "ContHunt social content research skill",
+      "version": "0.1.8",
+      "author": {
+        "name": "Synthenova"
+      },
+      "homepage": "https://conthunt.app",
+      "repository": "https://github.com/Synthenova/conthunt-cli",
+      "license": "MIT",
+      "keywords": ["conthunt", "tiktok", "instagram", "youtube", "agent-skills"]
+    }
+  ]
+}
