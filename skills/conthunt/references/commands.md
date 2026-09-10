@@ -47,6 +47,7 @@ conthunt search get <search-id> --json
 conthunt search wait <search-id> --json
 conthunt download url <media-asset-id> --json
 conthunt download file <media-asset-id> -o <path> --json
+conthunt download zip <media-asset-id> [<media-asset-id> ...] -o <path> --json
 conthunt analyze start <media-asset-id> --json
 conthunt analyze status <media-asset-id> --json
 conthunt analyze get <media-asset-id> --json
@@ -101,6 +102,27 @@ conthunt research list --json
 ```
 
 Research is multi-turn on one research chat ID. Do not send another turn while its status is active. `get` returns the completed answer and selected search metadata. `watched` pages through analyzed videos and can filter by finalized search or order by a research-question score. `evidence` returns the selected video's question-aware Markdown evidence.
+
+Newer database-evidence builds replace the per-video evidence command with operation pages. Detect this from `conthunt research evidence --help`, then use:
+
+```text
+conthunt research operations <chat-id> [--limit N] [--operation <analysis-run-id>] --json
+conthunt research evidence <analysis-run-id> [--cursor <cursor>] --json
+```
+
+Each evidence call returns one readable page covering up to 50 videos plus `next_cursor` and `has_more`. Do not pass a chat ID or content-item ID to this newer form.
+
+## Workspace files
+
+Workspace-file commands are available only when `conthunt files --help` succeeds:
+
+```text
+conthunt files list <chat-id> [--path /outputs/] --json
+conthunt files read <chat-id> <path> --json
+conthunt files download <chat-id> <path> --output <local-path> --json
+```
+
+`files read` returns UTF-8 text in `content`; binary data is saved to the returned `local_path`. Version 0.1.8 does not include the `files` command.
 
 ## Trending
 

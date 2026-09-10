@@ -9,7 +9,7 @@ Use `conthunt` as the interface to ContHunt. Prefer `--json` so IDs, statuses, p
 
 ## Setup
 
-Check for the CLI with `conthunt --version`. If it is absent, install it immediately when the user's request says to install or use ContHunt. That request already authorizes CLI installation; do not ask separately.
+Check for the CLI with `conthunt --version`. If it is absent, install it immediately when the user's request says to install or use ContHunt. That request already authorizes CLI installation; do not ask separately. Command surfaces can change between releases, so check `conthunt research evidence --help` before retrieving evidence and `conthunt files --help` before using workspace-file commands.
 
 - macOS/Linux: `curl -fsSL https://conthunt.app/install.sh | sh`
 - Windows PowerShell: `irm https://conthunt.app/install.ps1 | iex`
@@ -30,7 +30,7 @@ If stderr reports that an update is available, finish the current operation and 
 - Use `get` once the status is completed. Exit code 4 means the result is not ready.
 - Preserve returned run, search, media, content-item, board, and research chat IDs. They are inputs to later commands.
 - Follow a SearchAgent or research result's search IDs with `conthunt search get <search-id> --json` when full video results are needed.
-- Page through research videos with `research watched`; retrieve a selected video's question-aware Markdown with `research evidence`.
+- Page through research videos with `research watched`. In v0.1.8, retrieve one selected video's question-aware Markdown with `research evidence <chat-id> <content-item-id>`. Newer database-evidence builds expose `research operations <chat-id>` and page 50 videos at a time with `research evidence <analysis-run-id> [--cursor <cursor>]`; use the syntax shown by `--help`.
 - Analysis requires a stored `media_asset_id`; do not substitute a direct social or CDN URL.
 - `download file` downloads on the user's machine. Do not expose signed or origin URLs unless the user asks for a URL.
 
