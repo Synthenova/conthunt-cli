@@ -91,8 +91,8 @@ conthunt insights wait <board-id> --json
 ## Deep research
 
 ```text
-conthunt research start <brief> [--title <title>] [--board <id>] [--search <id>] --json
-conthunt research send <chat-id> <message> --json
+conthunt research start <brief> [--title <title>] [--board <id>] [--search <id>] [--auto-approve] --json
+conthunt research send <chat-id> <message> [--auto-approve] --json
 conthunt research status <chat-id> --json
 conthunt research get <chat-id> --json
 conthunt research wait <chat-id> --json
@@ -101,7 +101,7 @@ conthunt research evidence <chat-id> <content-item-id> --json
 conthunt research list --json
 ```
 
-Research is multi-turn on one research chat ID. Do not send another turn while its status is active. `get` returns the completed answer and selected search metadata. `watched` pages through analyzed videos and can filter by finalized search or order by a research-question score. `evidence` returns the selected video's question-aware Markdown evidence.
+Research is multi-turn on one research chat ID. `--auto-approve` accepts the recommended budget for that turn. In manual mode, status can report `input_mode=plan_reply` and `can_send_message=true`; answer it with `research send` to resume the same execution. Do not send during active work or `analysis_wait`. `get` returns the completed answer and selected search metadata. `watched` pages through analyzed videos and can filter by finalized search or order by a research-question score. `evidence` returns the selected video's question-aware Markdown evidence.
 
 Newer database-evidence builds replace the per-video evidence command with operation pages. Detect this from `conthunt research evidence --help`, then use:
 

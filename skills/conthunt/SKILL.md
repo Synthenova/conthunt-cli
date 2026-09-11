@@ -26,9 +26,11 @@ If stderr reports that an update is available, finish the current operation and 
 - Keep YouTube searches restricted to Shorts. Use the platform-specific query, date, sort, and proxy-region flags only when the request needs them; otherwise use the CLI defaults.
 - Use `research` when the user wants evidence-backed answers across the resulting videos.
 - Use `start` to enqueue long work and return immediately.
+- Add `--auto-approve` to `research start` or `research send` when the user wants that turn's recommended research budget accepted without a plan pause. Omit it for manual planning.
 - Use `status` for a small, non-blocking poll. Use `wait` only when the user wants the process to remain attached.
 - Use `get` once the status is completed. Exit code 4 means the result is not ready.
 - Preserve returned run, search, media, content-item, board, and research chat IDs. They are inputs to later commands.
+- When research status reports `input_mode=plan_reply` and `can_send_message=true`, use `research send` to answer the plan and resume the same execution. Do not send during active work or `analysis_wait`; those replies are rejected and never queued.
 - Follow a SearchAgent or research result's search IDs with `conthunt search get <search-id> --json` when full video results are needed.
 - Page through research videos with `research watched`. In v0.1.8, retrieve one selected video's question-aware Markdown with `research evidence <chat-id> <content-item-id>`. Newer database-evidence builds expose `research operations <chat-id>` and page 50 videos at a time with `research evidence <analysis-run-id> [--cursor <cursor>]`; use the syntax shown by `--help`.
 - Analysis requires a stored `media_asset_id`; do not substitute a direct social or CDN URL.
