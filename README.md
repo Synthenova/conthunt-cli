@@ -1,6 +1,47 @@
 # ContHunt CLI
 
-Official binary releases and agent skill for ContHunt, a social content research CLI for TikTok, Instagram Reels, and YouTube Shorts. The CLI source is maintained privately by Synthenova.
+Official binary releases, hosted MCP metadata, and agent skill for ContHunt, a social content research product for TikTok, Instagram Reels, and YouTube Shorts. The CLI and MCP source is maintained privately by Synthenova.
+
+## MCP
+
+Hosted Streamable HTTP + OAuth. No local MCP process.
+
+```text
+https://agent.conthunt.app/mcp
+```
+
+Codex:
+
+```sh
+codex mcp add conthunt --url https://agent.conthunt.app/mcp
+codex mcp login conthunt
+```
+
+Claude Code:
+
+```sh
+claude mcp add --transport http conthunt https://agent.conthunt.app/mcp
+```
+
+Cursor (`~/.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "conthunt": {
+      "url": "https://agent.conthunt.app/mcp"
+    }
+  }
+}
+```
+
+Gemini CLI:
+
+```sh
+gemini mcp add --transport http -s user conthunt https://agent.conthunt.app/mcp
+```
+
+Registry metadata: [`server.json`](server.json). Per-client install notes: [`MCP.md`](MCP.md).
 
 ## Agent skill
 

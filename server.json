@@ -1,0 +1,42 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.synthenova/conthunt",
+  "title": "ContHunt",
+  "description": "Research viral TikTok, Instagram Reels, and YouTube Shorts from any MCP client.",
+  "version": "1.0.0",
+  "websiteUrl": "https://conthunt.app",
+  "repository": {
+    "url": "https://github.com/Synthenova/conthunt-cli",
+    "source": "github",
+    "id": "1347412800"
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/Synthenova/conthunt-cli/main/assets/icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "687x687"
+      ]
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Synthenova/conthunt-cli/main/assets/icon-512.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "512x512"
+      ]
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Synthenova/conthunt-cli/main/assets/icon-400.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "400x400"
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://agent.conthunt.app/mcp"
+    }
+  ]
+}

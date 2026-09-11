@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "conthunt": {
+      "type": "http",
+      "url": "https://agent.conthunt.app/mcp"
+    }
+  }
+}
