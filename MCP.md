@@ -2,7 +2,7 @@
 
 Hosted Streamable HTTP endpoint:
 
-    https://agent.conthunt.app/mcp
+    https://mcp.conthunt.app/
 
 OAuth 2.1 with PKCE. The client opens the ContHunt approval page. No API key, no local process.
 
@@ -10,12 +10,12 @@ Official registry name: io.github.synthenova/conthunt
 
 ## Codex
 
-    codex mcp add conthunt --url https://agent.conthunt.app/mcp
+    codex mcp add conthunt --url https://mcp.conthunt.app/
     codex mcp login conthunt
 
 ## Claude Code
 
-    claude mcp add --transport http conthunt https://agent.conthunt.app/mcp
+    claude mcp add --transport http conthunt https://mcp.conthunt.app/
 
 Then run /mcp and complete browser approval.
 
@@ -31,7 +31,7 @@ Add to ~/.cursor/mcp.json:
     {
       "mcpServers": {
         "conthunt": {
-          "url": "https://agent.conthunt.app/mcp"
+          "url": "https://mcp.conthunt.app/"
         }
       }
     }
@@ -43,7 +43,7 @@ Add to ~/.cursor/mcp.json:
         "servers": {
           "conthunt": {
             "type": "http",
-            "url": "https://agent.conthunt.app/mcp"
+            "url": "https://mcp.conthunt.app/"
           }
         }
       }
@@ -51,7 +51,7 @@ Add to ~/.cursor/mcp.json:
 
 ## Gemini CLI
 
-    gemini mcp add --transport http -s user conthunt https://agent.conthunt.app/mcp
+    gemini mcp add --transport http -s user conthunt https://mcp.conthunt.app/
 
 Then /mcp auth conthunt.
 
@@ -60,7 +60,7 @@ Then /mcp auth conthunt.
     {
       "mcpServers": {
         "conthunt": {
-          "serverUrl": "https://agent.conthunt.app/mcp"
+          "serverUrl": "https://mcp.conthunt.app/"
         }
       }
     }
@@ -70,7 +70,7 @@ Then /mcp auth conthunt.
     {
       "mcpServers": {
         "conthunt": {
-          "url": "https://agent.conthunt.app/mcp",
+          "url": "https://mcp.conthunt.app/",
           "type": "streamableHttp"
         }
       }
@@ -78,7 +78,7 @@ Then /mcp auth conthunt.
 
 ## Claude.ai custom connector
 
-URL: https://agent.conthunt.app/mcp
+URL: https://mcp.conthunt.app/
 
 ## Related
 

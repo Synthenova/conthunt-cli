@@ -7,20 +7,20 @@ Official binary releases, hosted MCP metadata, and agent skill for ContHunt, a s
 Hosted Streamable HTTP + OAuth. No local MCP process.
 
 ```text
-https://agent.conthunt.app/mcp
+https://mcp.conthunt.app/
 ```
 
 Codex:
 
 ```sh
-codex mcp add conthunt --url https://agent.conthunt.app/mcp
+codex mcp add conthunt --url https://mcp.conthunt.app/
 codex mcp login conthunt
 ```
 
 Claude Code:
 
 ```sh
-claude mcp add --transport http conthunt https://agent.conthunt.app/mcp
+claude mcp add --transport http conthunt https://mcp.conthunt.app/
 ```
 
 Cursor (`~/.cursor/mcp.json`):
@@ -29,7 +29,7 @@ Cursor (`~/.cursor/mcp.json`):
 {
   "mcpServers": {
     "conthunt": {
-      "url": "https://agent.conthunt.app/mcp"
+      "url": "https://mcp.conthunt.app/"
     }
   }
 }
@@ -38,7 +38,7 @@ Cursor (`~/.cursor/mcp.json`):
 Gemini CLI:
 
 ```sh
-gemini mcp add --transport http -s user conthunt https://agent.conthunt.app/mcp
+gemini mcp add --transport http -s user conthunt https://mcp.conthunt.app/
 ```
 
 Registry metadata: [`server.json`](server.json). Per-client install notes: [`MCP.md`](MCP.md).

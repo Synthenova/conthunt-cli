@@ -1,0 +1,13 @@
+{
+  "name": "conthunt",
+  "version": "1.0.0",
+  "description": "Discover and research viral social content on TikTok, Instagram Reels, and YouTube Shorts.",
+  "author": {
+    "name": "Synthenova",
+    "url": "https://conthunt.app"
+  },
+  "homepage": "https://conthunt.app",
+  "repository": "https://github.com/Synthenova/conthunt-cli",
+  "license": "MIT",
+  "keywords": ["mcp", "tiktok", "instagram", "youtube", "social"]
+}

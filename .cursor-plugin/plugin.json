@@ -1,0 +1,15 @@
+{
+  "name": "conthunt",
+  "displayName": "ContHunt",
+  "version": "1.0.0",
+  "description": "Discover and research viral social content on TikTok, Instagram Reels, and YouTube Shorts over a hosted MCP server.",
+  "author": {
+    "name": "Synthenova",
+    "email": "nirmalvelu2000@gmail.com",
+    "url": "https://conthunt.app"
+  },
+  "homepage": "https://conthunt.app",
+  "repository": "https://github.com/Synthenova/conthunt-cli",
+  "license": "MIT",
+  "keywords": ["mcp", "tiktok", "instagram", "youtube", "social"]
+}
