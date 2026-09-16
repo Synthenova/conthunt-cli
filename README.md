@@ -53,7 +53,7 @@ Install for Claude Code, Codex, Cursor, and other agents:
 npx skills add Synthenova/conthunt-cli --skill conthunt -g
 ```
 
-Then ask the agent to research a niche with ContHunt. It installs the CLI if needed, runs `conthunt login`, and keeps results in `--json`.
+Then ask the agent to research a niche with ContHunt. If MCP is not connected, add `https://mcp.conthunt.app/` and sign in.
 
 Skill source: [`skills/conthunt/SKILL.md`](https://github.com/Synthenova/conthunt-cli/tree/main/skills/conthunt).
 
