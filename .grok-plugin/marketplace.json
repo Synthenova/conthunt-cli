@@ -1,0 +1,21 @@
+{
+  "name": "conthunt",
+  "description": "Hosted ContHunt MCP, agent skill, and CLI releases",
+  "owner": {
+    "name": "Synthenova"
+  },
+  "plugins": [
+    {
+      "name": "conthunt",
+      "description": "Discover and research viral social content on TikTok, Instagram Reels, and YouTube Shorts.",
+      "category": "research",
+      "source": {
+        "type": "local",
+        "path": "./"
+      },
+      "homepage": "https://conthunt.app",
+      "keywords": ["conthunt", "tiktok", "instagram reels", "youtube shorts"],
+      "domains": ["conthunt.app", "mcp.conthunt.app"]
+    }
+  ]
+}

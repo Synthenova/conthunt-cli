@@ -1,16 +1,18 @@
 {
   "name": "conthunt",
-  "version": "0.1.8",
-  "description": "Research viral TikTok, Instagram Reels, and YouTube Shorts through the ContHunt CLI.",
+  "version": "1.0.0",
+  "description": "Discover and research viral social content on TikTok, Instagram Reels, and YouTube Shorts.",
   "author": {
     "name": "Synthenova",
-    "url": "https://github.com/Synthenova"
+    "email": "nirmalvelu2000@gmail.com",
+    "url": "https://conthunt.app"
   },
   "homepage": "https://conthunt.app",
   "repository": "https://github.com/Synthenova/conthunt-cli",
   "license": "MIT",
   "keywords": [
     "conthunt",
+    "mcp",
     "tiktok",
     "instagram",
     "youtube",

@@ -12,6 +12,18 @@
   },
   "icons": [
     {
+      "src": "https://mcp.conthunt.app/icons/dark.png",
+      "mimeType": "image/png",
+      "sizes": ["800x800"],
+      "theme": "dark"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Synthenova/conthunt-cli/main/assets/logo-dark.png",
+      "mimeType": "image/png",
+      "sizes": ["800x800"],
+      "theme": "dark"
+    },
+    {
       "src": "https://raw.githubusercontent.com/Synthenova/conthunt-cli/main/assets/icon.png",
       "mimeType": "image/png",
       "sizes": [

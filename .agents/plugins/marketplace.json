@@ -1,0 +1,17 @@
+{
+  "name": "conthunt",
+  "owner": {
+    "name": "Synthenova"
+  },
+  "plugins": [
+    {
+      "name": "conthunt",
+      "source": {
+        "path": "./"
+      },
+      "interface": {
+        "displayName": "ContHunt"
+      }
+    }
+  ]
+}

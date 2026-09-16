@@ -5,21 +5,19 @@
     "email": "nirmalvelu2000@gmail.com"
   },
   "metadata": {
-    "description": "Hosted ContHunt MCP, agent skill, and CLI releases"
+    "description": "Hosted ContHunt MCP, agent skill, and CLI releases",
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "conthunt",
-      "source": "./",
+      "source": ".",
       "description": "Discover and research viral social content on TikTok, Instagram Reels, and YouTube Shorts.",
       "version": "1.0.0",
-      "author": {
-        "name": "Synthenova"
-      },
+      "logo": "assets/logo-dark.png",
       "homepage": "https://conthunt.app",
       "repository": "https://github.com/Synthenova/conthunt-cli",
-      "license": "MIT",
-      "keywords": ["conthunt", "mcp", "tiktok", "instagram", "youtube", "agent-skills"]
+      "keywords": ["mcp", "tiktok", "instagram", "youtube", "social"]
     }
   ]
 }

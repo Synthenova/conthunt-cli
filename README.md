@@ -2,6 +2,8 @@
 
 Official binary releases, hosted MCP metadata, and agent skill for ContHunt, a social content research product for TikTok, Instagram Reels, and YouTube Shorts. The CLI and MCP source is maintained privately by Synthenova.
 
+Cursor Marketplace reads `.cursor-plugin/` plus `mcp.json` and `assets/logo-dark.png`. The dedicated plugin pack is also at [`Synthenova/conthunt-mcp`](https://github.com/Synthenova/conthunt-mcp).
+
 ## MCP
 
 Hosted Streamable HTTP + OAuth. No local MCP process.

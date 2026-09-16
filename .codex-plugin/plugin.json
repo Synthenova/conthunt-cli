@@ -1,17 +1,16 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "conthunt",
-  "displayName": "ContHunt",
   "version": "1.0.0",
   "description": "Discover and research viral social content on TikTok, Instagram Reels, and YouTube Shorts.",
   "author": {
     "name": "Synthenova",
-    "email": "nirmalvelu2000@gmail.com",
     "url": "https://conthunt.app"
   },
   "homepage": "https://conthunt.app",
   "repository": "https://github.com/Synthenova/conthunt-cli",
   "license": "MIT",
-  "logo": "assets/logo-dark.png",
-  "keywords": ["mcp", "tiktok", "instagram", "youtube", "social"]
+  "interface": {
+    "displayName": "ContHunt",
+    "logo": "./assets/logo-dark.png"
+  }
 }
